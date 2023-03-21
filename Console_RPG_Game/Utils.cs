@@ -20,6 +20,13 @@ namespace Console_RPG_Game
     
     class Utils
     {
+        public static void draw_window()
+        {
+            Utils.print_coord("#########################################", 60, 14);
+
+            Utils.print_coord("#                                       #", 60, 15);
+        }
+
         public static void print_coord(string text, int x, int y, Color color = Color.White)
         {
             switch (color)

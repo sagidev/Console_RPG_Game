@@ -102,28 +102,28 @@ namespace Console_RPG_Game.Objects
             }
 
             Utils.print_coord("#                                       #", 60, 16 + i);
-            i++;
+            
             foreach (Armor armor in armors)
             {
                 if(armor == equippedArmor)
                 {
-                    Utils.print_coord("#  ", 60, 16 + i);
-                    Utils.print_coord((i + 1) + ": " + armor, 60, 16 + i,Color.Yellow);
+                    Utils.print_coord("#  ", 60, 16 + i + 1);
+                    Utils.print_coord((i + 1) + ": " + armor, 60, 16 + i + 1,Color.Yellow);
                 }
                 else
                 {
-                    Utils.print_coord("#  " + (i + 1) + ": " + armor, 60, 16 + i);
+                    Utils.print_coord("#  " + (i + 1) + ": " + armor, 60, 16 + i + 1);
                 }
-                Utils.print_coord("#  " + (i+1) + ": " + armor, 60, 16 + i);
-                Utils.print_coord("#", 100, 16 + i);
+                Utils.print_coord("#  " + (i+1) + ": " + armor, 60, 16 + i + 1);
+                Utils.print_coord("#", 100, 16 + i + 1);
                 i++;
             }
 
-            Utils.print_coord("#                                       #", 60, 16 + i);
+            Utils.print_coord("#                                       #", 60, 16 + i + 1);
             i++;
-            Utils.print_coord("#########################################", 60, 16 + i);
+            Utils.print_coord("#########################################", 60, 16 + i + 1);
             i++;
-            Utils.print_coord("# - Inventory", 60, 16+i);
+            Utils.print_coord("# - Inventory", 60, 16+i + 1);
 
 
 

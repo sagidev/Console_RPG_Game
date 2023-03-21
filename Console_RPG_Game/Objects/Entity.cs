@@ -72,6 +72,11 @@ namespace Console_RPG_Game.Objects
             this.gold -= gold;
         }
 
+        public int GetGold()
+        {
+            return this.gold;
+        }
+
         public void PrintEntity(bool isEnemy =false, bool isLeft = true)
         {
             if (!isLeft)
@@ -118,6 +123,7 @@ namespace Console_RPG_Game.Objects
                 Utils.print_coord("#                                       #", 5, 6);
 
                 Utils.print_coord("#  Name: " + this.name, 5, 7);
+                Utils.print_coord("Gold: " + this.gold, 32, 7);
                 Utils.print_coord("#", 45, 7);
 
                 Utils.print_coord("#  Health: " + this.health + "/" + this.maxHealth, 5, 8);
