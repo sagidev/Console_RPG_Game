@@ -69,8 +69,6 @@ namespace Console_RPG_Game
                                 Console.WriteLine("error xd   " + id);
                             else
                                 player.inventory.EquipWeapon(player.inventory.GetWeapons()[id - 1]);
-
-                            Thread.Sleep(2000);
                             break;
                         case '2':
                             break;

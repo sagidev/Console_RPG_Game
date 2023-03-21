@@ -6,12 +6,53 @@ using System.Threading.Tasks;
 
 namespace Console_RPG_Game
 {
+    enum Color
+    {
+        White,
+        Red,
+        Blue,
+        Yellow,
+        Green,
+        Pink,
+        Grey,
+        Black
+    }
+    
     class Utils
     {
-        public static void print_coord(string text, int x, int y)
+        public static void print_coord(string text, int x, int y, Color color = Color.White)
         {
+            switch (color)
+            {
+                case Color.White:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                case Color.Red:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+                case Color.Blue:
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    break;
+                case Color.Yellow:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+                case Color.Green:
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    break;
+                case Color.Pink:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    break;
+                case Color.Black:
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    break;
+                case Color.Grey:
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    break;
+
+            }
             Console.SetCursorPosition(x, y);
             Console.WriteLine(text);
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void print(string textToEnter)

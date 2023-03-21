@@ -89,7 +89,8 @@ namespace Console_RPG_Game.Objects
             {
                 if (weapon == equippedWeapon)
                 {
-                    Utils.print_coord("#  " + (i + 1) + ": " + weapon + "      [EQ]", 60, 16 + i);
+                    Utils.print_coord("#  ", 60, 16 + i);
+                    Utils.print_coord((i + 1) + ": " + weapon, 63, 16 + i, Color.Yellow);
                 }
                 else
                 {
@@ -106,7 +107,8 @@ namespace Console_RPG_Game.Objects
             {
                 if(armor == equippedArmor)
                 {
-                    Utils.print_coord("#  " + (i + 1) + ": " + armor + "      [EQ]", 60, 16 + i);
+                    Utils.print_coord("#  ", 60, 16 + i);
+                    Utils.print_coord((i + 1) + ": " + armor, 60, 16 + i,Color.Yellow);
                 }
                 else
                 {
