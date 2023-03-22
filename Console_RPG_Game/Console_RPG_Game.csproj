@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Game.cs" />
+    <Compile Include="Locations\Dungeon.cs" />
+    <Compile Include="Locations\Location.cs" />
     <Compile Include="Objects\Armor.cs" />
     <Compile Include="Objects\Entity.cs" />
     <Compile Include="Objects\Inventory.cs" />
@@ -56,8 +58,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Locations\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

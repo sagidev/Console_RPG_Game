@@ -6,6 +6,17 @@ using System.Threading.Tasks;
 
 namespace Console_RPG_Game.Objects
 {
+    enum CharacterStat
+    {
+        Health,
+        MaxHealth,
+        Attack,
+        Experience,
+        ExperienceToNextLevel,
+        Level,
+        Gold
+    }
+
     enum CharacterClass
     {
         Warrior,
@@ -44,6 +55,50 @@ namespace Console_RPG_Game.Objects
             characterClass = CharacterClass.Warrior;
         }
 
+        public string GetName()
+        {
+            return name;
+        }
+        
+        public int GetStat(CharacterStat stat)
+        {
+            switch (stat)
+            {
+                case CharacterStat.Health:
+                    return health;
+                case CharacterStat.MaxHealth:
+                    return maxHealth;
+                case CharacterStat.Attack:
+                    return attack;
+                case CharacterStat.Experience:
+                    return experience;
+                case CharacterStat.ExperienceToNextLevel:
+                    return experienceToNextLevel;
+                case CharacterStat.Level:
+                    return level;
+                case CharacterStat.Gold:
+                    return gold;
+                default:
+                    return 0;
+            }
+        }
+
+
+        public void AttackEnemy(Entity enemy)
+        {
+            enemy.TakeDamage(GetDamage());
+        }
+
+        public void TakeDamage(int damage)
+        {
+            this.health -= damage;
+            if (this.health <= 0)
+            {
+                this.health = 0;
+                Console.WriteLine(this.name + " has died!");
+            }
+        }
+
         public int GetDamage()
         {
             return (int)inventory.equippedWeapon.GetDamage();
@@ -75,6 +130,16 @@ namespace Console_RPG_Game.Objects
         public int GetGold()
         {
             return this.gold;
+        }
+
+        public int GetLevel()
+        {
+            return this.level;
+        }
+        
+        public void Heal(int value)
+        {
+            this.health += value;
         }
 
         public void PrintEntity(bool isEnemy =false, bool isLeft = true)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Console_RPG_Game.Objects
@@ -31,6 +32,16 @@ namespace Console_RPG_Game.Objects
             AddArmor(new Armor("Plate", 25, 4, ArmorRarity.Common, 25));
             AddArmor(new Armor("Dragon", 30, 5, ArmorRarity.Common, 25));
             AddArmor(new Armor("God", 35, 6, ArmorRarity.Common, 30));
+        }
+
+        public List<Weapon> GetWeapons()
+        {
+            return weapons;
+        }
+
+        public List<Armor> GetArmors()
+        {
+            return armors;
         }
 
         public void AddWeapon(Weapon weapon)

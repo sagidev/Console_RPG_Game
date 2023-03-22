@@ -84,6 +84,7 @@ namespace Console_RPG_Game
             //    Console.WriteLine(" Wrong input.\n Choose option: ");
             //    num = Convert.ToInt32(Console.ReadLine());
             //}
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
             return kchar;
         }
         
