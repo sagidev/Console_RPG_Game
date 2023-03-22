@@ -77,6 +77,11 @@ namespace Console_RPG_Game.Objects
             return equippedWeapon;
         }
 
+        public void DropItem()
+        {
+            
+        }
+
         public void PrintInventory()
         {
             Utils.print_coord("#########################################", 60, 14);

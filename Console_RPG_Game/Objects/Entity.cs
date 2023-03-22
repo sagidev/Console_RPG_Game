@@ -39,16 +39,18 @@ namespace Console_RPG_Game.Objects
         private int experienceToNextLevel;
         private int level;
         private int gold = 0;
+        public bool isAlive;
 
         public Entity(string name)
         {
             this.name = name;
             health = 100;
-            maxHealth = health;
+            maxHealth = 100;
             attack = 10;
             experience = 0;
             experienceToNextLevel = 100;
             level = 1;
+            isAlive = true;
 
             inventory = new Inventory();
 
@@ -87,6 +89,10 @@ namespace Console_RPG_Game.Objects
         public void AttackEnemy(Entity enemy)
         {
             enemy.TakeDamage(GetDamage());
+            if (enemy.GetStat(CharacterStat.Health) <= 0)
+            {
+                KillTarget(enemy);
+            }
         }
 
         public void TakeDamage(int damage)
@@ -95,8 +101,22 @@ namespace Console_RPG_Game.Objects
             if (this.health <= 0)
             {
                 this.health = 0;
-                Console.WriteLine(this.name + " has died!");
             }
+        }
+
+        public void KillTarget(Entity enemy)
+        {
+            enemy.isAlive = false;
+            enemy.health = 0;
+            Random rng = new Random();
+            int chance = rng.Next(0, 100);
+            if(chance>50)
+            {
+                this.inventory.AddWeapon(enemy.inventory.equippedWeapon);
+                Utils.PrintNotification("You dropped a " + enemy.inventory.equippedWeapon + "!!");
+            }
+            this.AddExperience(enemy.experience);
+            this.AddGold(enemy.gold);
         }
 
         public int GetDamage()
@@ -113,7 +133,7 @@ namespace Console_RPG_Game.Objects
                 this.experienceToNextLevel += 100;
                 this.level++;
                 this.health = this.maxHealth;
-                Console.WriteLine("Level up!");
+                Utils.PrintNotification("Level up!");
             }
         }
 
@@ -140,6 +160,10 @@ namespace Console_RPG_Game.Objects
         public void Heal(int value)
         {
             this.health += value;
+            if (this.health > this.maxHealth)
+            {
+                this.health = this.maxHealth;
+            }
         }
 
         public void PrintEntity(bool isEnemy =false, bool isLeft = true)
@@ -150,7 +174,8 @@ namespace Console_RPG_Game.Objects
 
                 Utils.print_coord("#                                       #", 60, 15);
 
-                Utils.print_coord("#  Name: " + this.name, 60, 16);
+                Utils.print_coord("#  Name: " + this.name + " [" + this.level + "]", 60, 16);
+                Utils.print_coord("Gold: " + this.gold, 85, 16);
                 Utils.print_coord("#", 100, 16);
 
                 Utils.print_coord("#  Health: " + this.health + "/" + this.maxHealth, 60, 17);
@@ -187,7 +212,7 @@ namespace Console_RPG_Game.Objects
 
                 Utils.print_coord("#                                       #", 5, 6);
 
-                Utils.print_coord("#  Name: " + this.name, 5, 7);
+                Utils.print_coord("#  Name: " + this.name + " [" + this.level + "]", 5, 7);
                 Utils.print_coord("Gold: " + this.gold, 32, 7);
                 Utils.print_coord("#", 45, 7);
 
@@ -226,26 +251,6 @@ namespace Console_RPG_Game.Objects
         public override string ToString()
         {
             return " [" + this.name + "][" + this.level + "][" + this.characterClass + "][DMG:" + this.GetDamage() + "]";
-            //if (this.characterClass == CharacterClass.NPC)
-            //{
-            //    return " Name: " + this.name + "\n" +
-            //    " Level: " + this.level + "\n" +
-            //    " Experience: " + this.experience + "\n" +
-            //    " Gold: " + this.gold + "\n" +
-            //    " Health: " + this.health + "\n" +
-            //    " Damage: " + this.GetDamage() + "\n" +
-            //    " Weapon " + this.inventory.equippedWeapon + "\n";
-            //}
-            //else
-            //{
-            //    return "| Name: " + this.name + "\n" +
-            //    "| Class: " + this.characterClass + "\n" +
-            //    "| Level: " + this.level + "\n" +
-            //    "| Experience: " + this.experience + "/" + this.experienceToNextLevel + "\n" +
-            //    "| Health: " + this.health + "\n" +
-            //    "| Damage: " + this.GetDamage() + "\n" +
-            //    "| Weapon " + this.inventory.equippedWeapon + "\n";
-            //}
         }
     }
 }

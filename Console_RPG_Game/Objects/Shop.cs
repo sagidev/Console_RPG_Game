@@ -60,6 +60,7 @@ namespace Console_RPG_Game.Objects
             {
                 if (player.GetGold() >= weapon.GetPrice())
                 {
+                    Utils.print_coord("# You bought a " + weapon + "!", 5, 27);
                     player.RemoveGold(weapon.GetPrice());
                     player.inventory.AddWeapon(weapon);
                     weapons.Remove(weapon);

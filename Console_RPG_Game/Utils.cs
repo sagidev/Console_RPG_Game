@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Console_RPG_Game
@@ -78,15 +79,21 @@ namespace Console_RPG_Game
                 key = Console.ReadKey();
                 kchar = key.KeyChar;
             }
-            //int num = Convert.ToInt32(kchar);
-            //while (num < 0 || num > options)
-            //{
-            //    Console.WriteLine(" Wrong input.\n Choose option: ");
-            //    num = Convert.ToInt32(Console.ReadLine());
-            //}
             Console.SetCursorPosition(0, Console.CursorTop - 1);
             return kchar;
         }
-        
+
+        public static void PrintNotification(string text)
+        {
+            Console.SetCursorPosition((Console.WindowWidth - text.Length) / 2, 0);
+            Console.WriteLine("# " + text + " #");
+            Console.SetCursorPosition((Console.WindowWidth - text.Length) / 2, 1);
+            for (int i = 0; i < text.Length + 4; i++)
+            {
+                Console.Write("#");
+            }
+            Thread.Sleep(1500);
+        }
+
     }
 }

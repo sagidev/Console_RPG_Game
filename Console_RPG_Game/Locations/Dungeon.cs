@@ -26,6 +26,8 @@ namespace Console_RPG_Game.Locations
             Enemies = new List<Entity>();
 
             Entity enemy = new Entity("Skeleton");
+            enemy.AddGold(50);
+            enemy.AddExperience(50);
             Weapons.Add(new Weapon("dropik", 1, 1, WeaponRarity.Common));
             Weapons.Add(new Weapon("dropik2", 11, 1, WeaponRarity.Common));
             Enemies.Add(enemy);
@@ -54,6 +56,55 @@ namespace Console_RPG_Game.Locations
             Utils.print_coord("###################################################", 55, 10);
         }
 
+        public void Fight(Entity player, Entity enemy)
+        {
+            bool escaped = false;
+            while (!escaped || player.isAlive || enemy.isAlive)
+            {
+                Utils.print_coord("# What you gonna do?", 5, 20);
+                Utils.print_coord("1. Attack", 5, 21);
+                Utils.print_coord("2. Try to run away", 5, 22);
+                switch (Utils.GetInput())
+                {
+                    case '1':
+                        enemy.PrintEntity(true, false);
+                        player.PrintEntity(false, true);
+                        player.AttackEnemy(enemy);
+                        enemy.AttackEnemy(player);
+                        PrintDamageRecap(player, enemy);
+                        if (enemy.GetStat(CharacterStat.Health) <= 0)
+                        {
+                            Utils.print_coord("# You killed a " + enemy.GetName() + "!", 5, 24);
+                            Thread.Sleep(1000);
+                            escaped = true;
+                            break;
+                        }
+                        if (player.GetStat(CharacterStat.Health) <= 0)
+                        {
+                            Utils.print_coord("# You died!", 5, 24);
+                            Thread.Sleep(1000);
+                            escaped = true;
+                            break;
+                        }
+                        break;
+                    case '2':
+                        if (TryEscape())
+                        {
+                            Utils.print_coord("# You escaped!", 5, 24);
+                            Thread.Sleep(1000);
+                            escaped = true;
+                            break;
+                        }
+                        else
+                        {
+                            Utils.print_coord("# You failed to escape!", 5, 24);
+                            Thread.Sleep(1000);
+                            break;
+                        }
+                }
+            }
+        }
+
         public void StartDungeon(int stage, Entity player)
         {
             Console.WriteLine(" Entering the dungeon..\n");
@@ -71,19 +122,35 @@ namespace Console_RPG_Game.Locations
             bool escaped = false;
 
             Console.Clear();
-            while ( !escaped)
+            Enemies.FirstOrDefault().PrintEntity(true, false);
+            player.PrintEntity(false, true);
+            while (!escaped)
             {
                 
-                Enemies.FirstOrDefault().PrintEntity(true,false);
-                player.PrintEntity(false, true);
                 Utils.print_coord("# What you gonna do?", 5, 20);
                 Utils.print_coord("1. Attack", 5, 21);
                 Utils.print_coord("2. Try to run away", 5, 22);
                 switch(Utils.GetInput())
                 {
                     case '1':
+                        Enemies.FirstOrDefault().PrintEntity(true, false);
+                        player.PrintEntity(false, true);
                         player.AttackEnemy(Enemies.FirstOrDefault());
                         Enemies.FirstOrDefault().AttackEnemy(player);
+                        
+                        if (Enemies.FirstOrDefault().GetStat(CharacterStat.Health) <= 0)
+                        {
+                            Utils.print_coord("# You killed a " + Enemies.FirstOrDefault().GetName() + "!", 5, 24);
+                            Thread.Sleep(1000);
+                            escaped = true;
+                            break;
+                        }
+                        if (player.GetStat(CharacterStat.Health) <= 0)
+                        {
+                            Utils.print_coord("# You died!", 5, 24);
+                            Thread.Sleep(1000);
+                            break;
+                        }
                         PrintDamageRecap(player, Enemies.FirstOrDefault());
                         break;
                     case '2':

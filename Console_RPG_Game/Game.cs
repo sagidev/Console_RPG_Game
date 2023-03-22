@@ -99,6 +99,7 @@ namespace Console_RPG_Game
                             else
                             {
                                 shop.BuyWeapon(shop.GetWeapons()[id - 1]);
+                                Thread.Sleep(1000);
                             }
                             break;
                         case '2':
